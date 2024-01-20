@@ -10,13 +10,13 @@ ORDER BY country, avg(amount) DESC ;
 
 ########################################### EJERCICIO 2. 2  ###########################################
 
-	SELECT country, count(status) AS "numero de operaciones", max(amount) AS "transacción maxima",
+SELECT country, count(status) AS "numero de operaciones", max(amount) AS "transacción maxima",
 		min(amount) AS "transacción mínima"
-	FROM operaciones_ucm.orders
-	WHERE status <> "DELINQUENT" AND amount > 100
-	GROUP BY country 
-	ORDER BY count(status) DESC
-	LIMIT 3;
+FROM operaciones_ucm.orders
+WHERE status <> "DELINQUENT" AND amount > 100
+GROUP BY country 
+ORDER BY count(status) DESC
+LIMIT 3;
     
 
 ########################################### 3.1 ###########################################
@@ -64,8 +64,6 @@ SELECT DISTINCT country,
     ELSE "DEBAJO" END) AS `comportamiento_de_prestamos` 
 FROM operaciones_ucm.orders
 ORDER BY `suma_por_pais` DESC;
-
-
 
 SELECT  distinct country, 
 		count(order_id) OVER (partition by country) as `recuento_de_operaciones`,
