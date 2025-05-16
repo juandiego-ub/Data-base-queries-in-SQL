@@ -3,8 +3,8 @@
 SELECT country, `status`, count(`status`) as "total operaciones", ROUND(avg(amount), 2) as "importe promedio"
 FROM operaciones_ucm.orders
 WHERE created_at > 2015-07-01
-AND country IN ("Francia", "Portugal", "España")
-AND amount BETWEEN 100 AND 1500
+	AND country IN ("Francia", "Portugal", "España")
+	AND amount BETWEEN 100 AND 1500
 GROUP BY country, status
 ORDER BY country, avg(amount) DESC ;
 
@@ -46,8 +46,8 @@ CREATE VIEW operaciones_ucm.orders_view AS
 SELECT o.order_id, o.created_at, o.status, o.amount, o.merchant_id, o.country, m.name , r.conteo_devoluciones, r.suma_devoluciones
 FROM operaciones_ucm.orders as o
 	LEFT JOIN (SELECT refunds.order_id, count(refunds.order_id ) as "conteo_devoluciones", sum(amount) as "suma_devoluciones"
-					FROM operaciones_ucm.refunds
-					GROUP BY order_id) AS r
+			FROM operaciones_ucm.refunds
+			GROUP BY order_id) AS r
 		ON o.order_id = r.order_id
 	INNER JOIN operaciones_ucm.merchants as m
 		ON o.merchant_id = m.merchant_id;
